@@ -138,18 +138,18 @@ public class MusicOrganizer
         }
     }
     
-    public void randomAllTracks() 
-    {
-        ArrayList<Track> randomList = buildRandomList();
-        playList(randomList);
-    }
-
     private ArrayList<Track> buildRandomList() 
     {
         ArrayList<Track> randomList = new ArrayList<Track>(this.tracks);
         Collections.shuffle(randomList);
 
         return randomList;
+    }
+    
+    public void randomAllTracks() 
+    {
+        ArrayList<Track> randomList = buildRandomList();
+        playList(randomList);
     }
 
     public void playList(ArrayList<Track> playList) 
