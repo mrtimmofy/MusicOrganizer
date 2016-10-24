@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.*;
+import java.lang.*;
 
 /**
  * A class to hold details of audio tracks.
@@ -127,6 +129,41 @@ public class MusicOrganizer
         }
     }
     
+    private void readLibrary(String folderName)
+    {
+        ArrayList<Track> tempTracks = reader.readTracks(folderName, ".mp3");
+
+        // Put all thetracks into the organizer.
+        for(Track track : tempTracks) {
+            addTrack(track);
+        }
+    }
+    
+    public void randomAllTracks() 
+    {
+        ArrayList<Track> randomList = buildRandomList();
+        playList(randomList);
+    }
+
+    private ArrayList<Track> buildRandomList() 
+    {
+        ArrayList<Track> randomList = new ArrayList<Track>(this.tracks);
+        Collections.shuffle(randomList);
+
+        return randomList;
+    }
+
+    public void playList(ArrayList<Track> playList) 
+    {
+        if(playList.size() > 0) 
+        {
+            for(Track track : playList) 
+            {
+                player.startPlaying(track.getFilename());
+            }
+        }
+    }
+    
     /**
      * Stop the player.
      */
@@ -159,15 +196,5 @@ public class MusicOrganizer
             valid = true;
         }
         return valid;
-    }
-    
-    private void readLibrary(String folderName)
-    {
-        ArrayList<Track> tempTracks = reader.readTracks(folderName, ".mp3");
-
-        // Put all thetracks into the organizer.
-        for(Track track : tempTracks) {
-            addTrack(track);
-        }
     }
 }
